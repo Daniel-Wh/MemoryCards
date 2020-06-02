@@ -1,0 +1,19 @@
+{
+  "name": "memorycards",
+  "version": "1.0.0",
+  "description": "Memory Cards with cloud storage ",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Daniel-Wh/MemoryCards.git"
+  },
+  "author": "Daniel Whitney",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Daniel-Wh/MemoryCards/issues"
+  },
+  "homepage": "https://github.com/Daniel-Wh/MemoryCards#readme"
+}
