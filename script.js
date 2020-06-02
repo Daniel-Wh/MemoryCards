@@ -9,6 +9,9 @@ const answerEl = document.getElementById("answer");
 const addCardBtn = document.getElementById("add-card");
 const clearBtn = document.getElementById("clear");
 const addContainer = document.getElementById("add-container");
+const close = document.getElementById("close");
+const open = document.getElementById("open");
+const modal = document.getElementById("modal");
 
 // Keep track of current card
 let currentActiveCard = 0;
@@ -157,3 +160,15 @@ clearBtn.addEventListener("click", () => {
   cardsContainer.innerHTML = "";
   window.location.reload();
 });
+
+open.addEventListener("click", () => {
+  modal.classList.add("show-modal");
+});
+
+close.addEventListener("click", () => {
+  modal.classList.remove("show-modal");
+});
+
+window.addEventListener("click", (e) =>
+  e.target == modal ? modal.classList.remove("show-modal") : false
+);
