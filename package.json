@@ -28,6 +28,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "core-js": "^3.6.5",
+    "html-webpack-plugin": "^4.3.0"
   }
 }

@@ -1,17 +1,4 @@
-const cardsContainer = document.getElementById("cards-container");
-const prevBtn = document.getElementById("prev");
-const nextBtn = document.getElementById("next");
-const currentEl = document.getElementById("current");
-const showBtn = document.getElementById("show");
-const hideBtn = document.getElementById("hide");
-const questionEl = document.getElementById("question");
-const answerEl = document.getElementById("answer");
-const addCardBtn = document.getElementById("add-card");
-const clearBtn = document.getElementById("clear");
-const addContainer = document.getElementById("add-container");
-const close = document.getElementById("close");
-const open = document.getElementById("open");
-const modal = document.getElementById("modal");
+import { elements } from "./js/views/base";
 
 // Keep track of current card
 let currentActiveCard = 0;
@@ -73,14 +60,14 @@ function createCard(data, index) {
   // Add to DOM cards
   cardsEl.push(card);
 
-  cardsContainer.appendChild(card);
+  elements.cardsContainer.appendChild(card);
 
   updateCurrentText();
 }
 
 // Show number of cards
 function updateCurrentText() {
-  currentEl.innerText = `${currentActiveCard + 1}/${cardsEl.length}`;
+  elements.currentEl.innerText = `${currentActiveCard + 1}/${cardsEl.length}`;
 }
 
 // Get cards from local storage
@@ -100,7 +87,7 @@ createCards();
 // Event listeners
 
 // Next button
-nextBtn.addEventListener("click", () => {
+elements.nextBtn.addEventListener("click", () => {
   cardsEl[currentActiveCard].className = "card left";
 
   currentActiveCard = currentActiveCard + 1;
@@ -115,7 +102,7 @@ nextBtn.addEventListener("click", () => {
 });
 
 // Prev button
-prevBtn.addEventListener("click", () => {
+elements.prevBtn.addEventListener("click", () => {
   cardsEl[currentActiveCard].className = "card right";
 
   currentActiveCard = currentActiveCard - 1;
@@ -130,24 +117,28 @@ prevBtn.addEventListener("click", () => {
 });
 
 // Show add container
-showBtn.addEventListener("click", () => addContainer.classList.add("show"));
+elements.showBtn.addEventListener("click", () =>
+  elements.addContainer.classList.add("show")
+);
 // Hide add container
-hideBtn.addEventListener("click", () => addContainer.classList.remove("show"));
+elements.hideBtn.addEventListener("click", () =>
+  elements.addContainer.classList.remove("show")
+);
 
 // Add new card
-addCardBtn.addEventListener("click", () => {
-  const question = questionEl.value;
-  const answer = answerEl.value;
+elements.addCardBtn.addEventListener("click", () => {
+  const question = elements.questionEl.value;
+  const answer = elements.answerEl.value;
 
   if (question.trim() && answer.trim()) {
     const newCard = { question, answer };
 
     createCard(newCard);
 
-    questionEl.value = "";
-    answerEl.value = "";
+    elements.questionEl.value = "";
+    elements.answerEl.value = "";
 
-    addContainer.classList.remove("show");
+    elements.addContainer.classList.remove("show");
 
     cardsData.push(newCard);
     setCardsData(cardsData);
@@ -155,20 +146,22 @@ addCardBtn.addEventListener("click", () => {
 });
 
 // Clear cards button
-clearBtn.addEventListener("click", () => {
+elements.clearBtn.addEventListener("click", () => {
   localStorage.clear();
-  cardsContainer.innerHTML = "";
+  elements.cardsContainer.innerHTML = "";
   window.location.reload();
 });
 
-open.addEventListener("click", () => {
-  modal.classList.add("show-modal");
+elements.open.addEventListener("click", () => {
+  elements.modal.classList.add("show-modal");
 });
 
-close.addEventListener("click", () => {
-  modal.classList.remove("show-modal");
+elements.close.addEventListener("click", () => {
+  elements.modal.classList.remove("show-modal");
 });
 
 window.addEventListener("click", (e) =>
-  e.target == modal ? modal.classList.remove("show-modal") : false
+  e.target == elements.modal
+    ? elements.modal.classList.remove("show-modal")
+    : false
 );
