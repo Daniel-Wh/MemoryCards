@@ -1,7 +1,4 @@
 from db import db
-from sqlalchemy.orm import scoped_session, sessionmaker
-
-DBSession = scoped_session(sessionmaker())
 
 
 class Cards(db.Model):
@@ -13,7 +10,7 @@ class Cards(db.Model):
     question = db.Column(db.String(256))
     answer = db.Column(db.String(256))
     course = db.Column(db.String(64))
-    user = db.relationship('User')
+    # user = db.relationship('User')
 
     def __init__(self, question, answer, course):
         self.question = question
@@ -31,12 +28,26 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
-    children = db.relationship('Cards')
+    # children = db.relationship('Cards')
 
     def __init__(self, email, password):
         self.email = email
         self.password = password
 
+    def json(self):
+        return {
+            'id': self.id,
+            'email': self.email
+        }
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def find_by_username(cls, email):
+        return cls.query.filter_by(email=email).first()
+
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()

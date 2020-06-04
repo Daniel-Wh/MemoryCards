@@ -16,4 +16,8 @@ export const elements = {
   close: document.getElementById("close"),
   open: document.getElementById("open"),
   modal: document.getElementById("modal"),
+  emailEl: document.getElementById("email"),
+  passwordEl: document.getElementById("password"),
+  password2el: document.getElementById("password2"),
+  registerSubmit: document.getElementById("registerSubmit"),
 };

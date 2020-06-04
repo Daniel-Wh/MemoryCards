@@ -1,4 +1,5 @@
 import { elements } from "./js/views/base";
+import Axios from "../node_modules/axios";
 
 // Keep track of current card
 let currentActiveCard = 0;
@@ -8,21 +9,6 @@ const cardsEl = [];
 
 // Store card data
 const cardsData = getCardsData();
-
-// const cardsData = [
-//   {
-//     question: 'What must a variable begin with?',
-//     answer: 'A letter, $ or _'
-//   },
-//   {
-//     question: 'What is a variable?',
-//     answer: 'Container for a piece of data'
-//   },
-//   {
-//     question: 'Example of Case Sensitive Variable',
-//     answer: 'thisIsAVariable'
-//   }
-// ];
 
 // Create all cards
 function createCards() {
@@ -79,7 +65,7 @@ function getCardsData() {
 // Add card to local storage
 function setCardsData(cards) {
   localStorage.setItem("cards", JSON.stringify(cards));
-  window.location.reload();
+  // window.location.reload();
 }
 
 createCards();
@@ -165,3 +151,32 @@ window.addEventListener("click", (e) =>
     ? elements.modal.classList.remove("show-modal")
     : false
 );
+
+elements.registerSubmit.addEventListener("click", (e) => {
+  console.log("register User submitted");
+  e.preventDefault();
+  const emailVal = elements.emailEl.value;
+  const password = elements.passwordEl.value;
+  const password2 = elements.password2el.value;
+  if (password === password2) {
+    registerUser(emailVal, password);
+  }
+});
+
+async function registerUser(email, password) {
+  console.log("call has been made to register user");
+  const res = await Axios.post("http://127.0.0.1:5000/register", {
+    username: email,
+    password: password,
+  }).then(
+    (response) => {
+      if (response.status === 201) {
+        elements.modal.classList.remove("show-modal");
+        alert("Your account has been created ");
+      } else {
+        console.log(response.statusText);
+      }
+    },
+    (error) => console.log(error)
+  );
+}
