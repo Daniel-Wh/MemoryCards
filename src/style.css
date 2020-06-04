@@ -147,6 +147,10 @@ h1 button {
   background-color: transparent;
   cursor: pointer;
   font-size: 16px;
+  outline: none;
+}
+.navigation .nav-button:hover {
+  outline: none;
 }
 
 .navigation p {
