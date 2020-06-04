@@ -7,18 +7,20 @@ from flask_cors import CORS, cross_origin
 from Resources.UserRegister import UserRegister
 from blacklist import BLACKLIST
 from db import db as db
+from SETTINGS import uri, secret_key
 from models import CardsModel
 
 
 app = Flask(__name__)
 cors = CORS(app)
 cross_origin()
-uri = 'sqlite:///data.db'
+# uri = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['PROPAGATE_EXCEPTIONS'] = True
 api = Api(app)
 db.init_app(app)
+app.secret_key = secret_key
 
 
 @app.before_first_request
