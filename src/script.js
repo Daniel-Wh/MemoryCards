@@ -152,6 +152,10 @@ window.addEventListener("click", (e) =>
     : false
 );
 
+elements.navToggle.addEventListener("click", () => {
+  document.body.classList.toggle("show-nav");
+});
+
 elements.registerSubmit.addEventListener("click", (e) => {
   console.log("register User submitted");
   e.preventDefault();

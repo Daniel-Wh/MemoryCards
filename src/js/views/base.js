@@ -20,4 +20,5 @@ export const elements = {
   passwordEl: document.getElementById("password"),
   password2el: document.getElementById("password2"),
   registerSubmit: document.getElementById("registerSubmit"),
+  navToggle: document.getElementById("toggle"),
 };
