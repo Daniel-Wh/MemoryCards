@@ -10,17 +10,26 @@
       integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="static/style.css" />
+
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+    <link rel="stylesheet" href="static/css/style.css" />
     <title>Memory Cards</title>
   </head>
   <body>
-    <h1>
-      Use for free - cards stored locally - sign up to store cards remotely
-    </h1>
+    <nav>
+      <button id="toggle" class="toggle">
+        <i class="fa fa-bars fa-2x"></i>
+      </button>
+      <ul>
+        <li><a href="#">Courses:</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact Me</a></li>
+      </ul>
+    </nav>
+    <h1>Cards stored locally. Sign up to store cards remotely</h1>
     <button class="btn btn-small" id="open">Sign Up</button>
-    <button id="clear" class="clear btn">
-      <i class="fas fa-trash"></i> Clear Cards
-    </button>
+    <button class="btn btn-small" id="login">Log in</button>
     <h1>
       Memory Cards
       <button id="show" class="btn btn-small">
@@ -29,6 +38,9 @@
     </h1>
     <div id="cards-container" class="cards"></div>
     <div class="navigation">
+      <button id="clear" class="clear btn">
+        <i class="fas fa-trash"></i> Clear Cards
+      </button>
       <button id="prev" class="nav-button">
         <i class="fas fa-arrow-left"></i>
       </button>
