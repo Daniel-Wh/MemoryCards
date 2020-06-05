@@ -4,14 +4,11 @@ from flask import Flask, render_template, jsonify
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
 from flask_cors import CORS, cross_origin
-from boto.s3.connection import S3Connection
-
-
 from Resources.UserRegister import UserRegister
 from blacklist import BLACKLIST
 from db import db as db
-from SETTINGS import uri, secret_key
-from models import CardsModel
+# from SETTINGS import uri, secret_key
+# from models import CardsModel
 
 
 app = Flask(__name__)
