@@ -169,7 +169,7 @@ elements.registerSubmit.addEventListener("click", (e) => {
 
 async function registerUser(email, password) {
   console.log("call has been made to register user");
-  const res = await Axios.post("http://127.0.0.1:5000/register", {
+  const res = await Axios.post("http://memoize-su.herokuapp.com/register", {
     username: email,
     password: password,
   }).then(
