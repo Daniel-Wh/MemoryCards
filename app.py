@@ -17,14 +17,15 @@ from models import CardsModel
 app = Flask(__name__)
 cors = CORS(app)
 cross_origin()
-s3 = S3Connection(os.environ['uri'], os.environ['secret_key'])
+uri = os.environ.get('uri')
+secret_key = os.environ.get('secret_key')
 # uri = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = s3[0]
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['PROPAGATE_EXCEPTIONS'] = True
 api = Api(app)
 db.init_app(app)
-app.secret_key = s3[1]
+app.secret_key = secret_key
 
 
 @app.before_first_request
