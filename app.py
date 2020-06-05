@@ -1,7 +1,10 @@
+import os
+
 from flask import Flask, render_template, jsonify
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
 from flask_cors import CORS, cross_origin
+from boto.s3.connection import S3Connection
 
 
 from Resources.UserRegister import UserRegister
@@ -14,13 +17,14 @@ from models import CardsModel
 app = Flask(__name__)
 cors = CORS(app)
 cross_origin()
+s3 = S3Connection(os.environ['uri'], os.environ['secret_key'])
 # uri = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = uri
+app.config['SQLALCHEMY_DATABASE_URI'] = s3[0]
 app.config['PROPAGATE_EXCEPTIONS'] = True
 api = Api(app)
 db.init_app(app)
-app.secret_key = secret_key
+app.secret_key = s3[1]
 
 
 @app.before_first_request
@@ -38,7 +42,7 @@ JWT related configuration. The following functions includes:
 1) add claims to each jwt
 2) customize the token expired error message 
 """
-app.config['JWT_SECRET_KEY'] = 'jose'  # we can also use app.secret like before, Flask-JWT-Extended can recognize both
+# we can also use app.secret like before, Flask-JWT-Extended can recognize both
 app.config['JWT_BLACKLIST_ENABLED'] = True  # enable blacklist feature
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']  # allow blacklisting for access and refresh tokens
 jwt = JWTManager(app)
