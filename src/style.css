@@ -241,7 +241,7 @@ h1 button {
 }
 
 .modal-header {
-  background: #9697f1;
+  background: #9697f19c;
   color: #fff;
   padding: 15px;
 }
@@ -296,6 +296,7 @@ body.show-nav {
   transform: translateX(85px);
 }
 nav {
+  display: none;
   background-color: transparent;
   color: #fff;
   position: relative;
@@ -305,7 +306,10 @@ nav {
   height: 40px;
   z-index: 0;
   transform: translateX(-85px);
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: transform 0.7s ease, opacity 0.4s ease;
+}
+nav.show-nav {
+  display: flex;
 }
 nav ul {
   padding: 0;
@@ -322,6 +326,7 @@ nav ul li a {
 }
 nav ul li a:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 nav button {
   position: absolute;
@@ -330,7 +335,7 @@ nav button {
   border-radius: 5px;
   top: 0;
   outline: none;
-  box-shadow: 3px solid #221efdef;
+  box-shadow: 3px solid #fafafa;
 }
 nav button:hover {
   outline: none;
