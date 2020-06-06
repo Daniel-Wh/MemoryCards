@@ -208,6 +208,7 @@ async function loginUser(email, password) {
     password: password,
   }).then((response) => {
     if (response.status === 200) {
+      // if user successfully logs in - jwt token also received
       elements.loginContainer.classList.remove("show-modal");
       alert("successfully logged in");
       elements.nav.classList.add("show-nav");

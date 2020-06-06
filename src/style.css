@@ -17,6 +17,25 @@ body {
   overflow: hidden;
   font-family: "Lato", sans-serif;
 }
+.header header {
+  display: inline;
+  flex-direction: column;
+  justify-items: space-evenly;
+  justify-content: center;
+  align-items: center;
+}
+.header h1 {
+  align-self: center;
+  left: 25%;
+  text-shadow: 1px solid #000;
+  font-size: 44px;
+}
+.header button {
+  align-content: center;
+  position: flex;
+  top: 0;
+  right: 40px;
+}
 
 h1 {
   position: relative;
@@ -32,7 +51,7 @@ h1 button {
 .btn {
   cursor: pointer;
   background-color: #fff;
-  border: 1px solid #aaa;
+  border: 1px solid rgba(188, 147, 243, 0.8);
   border-radius: 3px;
   font-size: 14px;
   margin-top: 20px;
