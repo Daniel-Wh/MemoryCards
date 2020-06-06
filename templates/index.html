@@ -10,26 +10,34 @@
       integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
       crossorigin="anonymous"
     />
-
+    <link rel="stylesheet" href="static/style.css" />
     <link rel="shortcut icon" href="/static/favicon.ico" />
-    <link rel="stylesheet" href="static/css/style.css" />
     <title>Memory Cards</title>
   </head>
   <body>
-    <nav>
+    <nav id="nav">
       <button id="toggle" class="toggle">
         <i class="fa fa-bars fa-2x"></i>
       </button>
       <ul>
-        <li><a href="#">Courses:</a></li>
+        <li><a id="courses">Courses:</a></li>
         <li><a href="#">Portfolio</a></li>
         <li><a href="#">Blog</a></li>
         <li><a href="#">Contact Me</a></li>
       </ul>
     </nav>
-    <h1>Cards stored locally. Sign up to store cards remotely</h1>
-    <button class="btn btn-small" id="open">Sign Up</button>
-    <button class="btn btn-small" id="login">Log in</button>
+    <div class="header">
+      <header>
+        <h1>Memoize</h1>
+        <h3>Sign up to store cards remotely and create classes</h3>
+        <button class="btn btn-small" id="open">
+          <i class="fas fa-heart"></i> Sign Up
+        </button>
+        <button class="btn btn-small" id="login">
+          <i class="fas fa-cloud-download-alt">Log In</i>
+        </button>
+      </header>
+    </div>
     <h1>
       Memory Cards
       <button id="show" class="btn btn-small">
@@ -39,7 +47,7 @@
     <div id="cards-container" class="cards"></div>
     <div class="navigation">
       <button id="clear" class="clear btn">
-        <i class="fas fa-trash"></i> Clear Cards
+        <i class="fas fa-bomb"></i> Clear Cards
       </button>
       <button id="prev" class="nav-button">
         <i class="fas fa-arrow-left"></i>
@@ -107,6 +115,44 @@
               </div>
               <input
                 id="registerSubmit"
+                type="submit"
+                value="Submit"
+                class="submit-btn"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="login-modal-container" id="login-modal">
+      <div class="modal">
+        <button class="close-btn" id="login-close">
+          <i class="fa fa-times"></i>
+        </button>
+        <div class="modal-header">
+          <h3>Login</h3>
+          <div class="modal-content">
+            <form class="modal-form">
+              <div>
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="login-email"
+                  placeholder="Enter Email Address"
+                  class="form-input"
+                />
+              </div>
+              <div>
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  id="login-password"
+                  placeholder="Enter Password"
+                  class="form-input"
+                />
+              </div>
+              <input
+                id="loginSubmit"
                 type="submit"
                 value="Submit"
                 class="submit-btn"

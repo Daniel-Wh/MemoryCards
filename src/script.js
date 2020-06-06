@@ -177,7 +177,7 @@ elements.registerSubmit.addEventListener("click", (e) => {
 
 async function registerUser(email, password) {
   console.log("call has been made to register user");
-  const res = await Axios.post(`${url}\\register`, {
+  const res = await Axios.post(`${url}/register`, {
     username: email,
     password: password,
   }).then(

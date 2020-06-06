@@ -17,6 +17,25 @@ body {
   overflow: hidden;
   font-family: "Lato", sans-serif;
 }
+.header header {
+  display: inline;
+  flex-direction: column;
+  justify-items: space-evenly;
+  justify-content: center;
+  align-items: center;
+}
+.header h1 {
+  align-self: center;
+  left: 25%;
+  text-shadow: 1px solid #000;
+  font-size: 44px;
+}
+.header button {
+  align-content: center;
+  position: flex;
+  top: 0;
+  right: 40px;
+}
 
 h1 {
   position: relative;
@@ -32,7 +51,7 @@ h1 button {
 .btn {
   cursor: pointer;
   background-color: #fff;
-  border: 1px solid #aaa;
+  border: 1px solid rgba(188, 147, 243, 0.8);
   border-radius: 3px;
   font-size: 14px;
   margin-top: 20px;
@@ -206,6 +225,20 @@ h1 button {
   bottom: 0;
   z-index: 2;
 }
+.login-modal-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.login-modal-container.show-modal {
+  display: block;
+}
 
 .modal-container.show-modal {
   display: block;
@@ -227,7 +260,7 @@ h1 button {
 }
 
 .modal-header {
-  background: #9697f1;
+  background: #9697f19c;
   color: #fff;
   padding: 15px;
 }
@@ -257,6 +290,8 @@ h1 button {
 
 .close-btn {
   background: transparent;
+  background-color: transparent;
+  border: transparent;
   font-size: 25px;
   position: absolute;
   top: 0;
@@ -280,6 +315,7 @@ body.show-nav {
   transform: translateX(85px);
 }
 nav {
+  display: none;
   background-color: transparent;
   color: #fff;
   position: relative;
@@ -289,7 +325,10 @@ nav {
   height: 40px;
   z-index: 0;
   transform: translateX(-85px);
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: transform 0.7s ease, opacity 0.4s ease;
+}
+nav.show-nav {
+  display: flex;
 }
 nav ul {
   padding: 0;
@@ -306,6 +345,7 @@ nav ul li a {
 }
 nav ul li a:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 nav button {
   position: absolute;
@@ -314,7 +354,7 @@ nav button {
   border-radius: 5px;
   top: 0;
   outline: none;
-  box-shadow: 3px solid #221efdef;
+  box-shadow: 3px solid #fafafa;
 }
 nav button:hover {
   outline: none;
