@@ -40,8 +40,7 @@ class UserRegister(Resource):
 class UserLogin(Resource):
     def post(self):
         data = _user_parser.parse_args()
-        print(data)
-        user = User.find_by_username(data['username'])
+        user = U.find_by_username(data['username'])
 
         if user and safe_str_cmp(user.password, data['password']):
             access_token = create_access_token(identity=user.id, fresh=True)
