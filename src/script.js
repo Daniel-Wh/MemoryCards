@@ -192,3 +192,25 @@ async function registerUser(email, password) {
     (error) => console.log(error)
   );
 }
+
+elements.loginSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+  const email = elements.loginEmail.value;
+  const password = elements.loginPassword.value;
+  if (email && password) {
+    loginUser(email, password);
+  }
+});
+
+async function loginUser(email, password) {
+  const res = await Axios.post(`${url}/login`, {
+    username: email,
+    password: password,
+  }).then((response) => {
+    if (response.status === 200) {
+      elements.loginContainer.classList.remove("show-modal");
+      alert("successfully logged in");
+      elements.nav.classList.add("show-nav");
+    }
+  });
+}
