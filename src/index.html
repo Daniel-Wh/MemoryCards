@@ -155,6 +155,44 @@
         </div>
       </div>
     </div>
+    <div class="login-modal-container" id="login-modal">
+      <div class="modal">
+        <button class="close-btn" id="login-close">
+          <i class="fa fa-times"></i>
+        </button>
+        <div class="modal-header">
+          <h3>Login</h3>
+          <div class="modal-content">
+            <form class="modal-form">
+              <div>
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="login-email"
+                  placeholder="Enter Email Address"
+                  class="form-input"
+                />
+              </div>
+              <div>
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  id="login-password"
+                  placeholder="Enter Password"
+                  class="form-input"
+                />
+              </div>
+              <input
+                id="loginSubmit"
+                type="submit"
+                value="Submit"
+                class="submit-btn"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="script.js"></script>
   </body>
 </html>

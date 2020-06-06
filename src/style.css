@@ -206,6 +206,20 @@ h1 button {
   bottom: 0;
   z-index: 2;
 }
+.login-modal-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.login-modal-container.show-modal {
+  display: block;
+}
 
 .modal-container.show-modal {
   display: block;
@@ -257,6 +271,8 @@ h1 button {
 
 .close-btn {
   background: transparent;
+  background-color: transparent;
+  border: transparent;
   font-size: 25px;
   position: absolute;
   top: 0;

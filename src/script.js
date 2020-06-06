@@ -1,6 +1,7 @@
 import { elements } from "./js/views/base";
 import Axios from "../node_modules/axios";
 
+const url = "https://memoize-su.herokuapp.com";
 // Keep track of current card
 let currentActiveCard = 0;
 
@@ -138,6 +139,13 @@ elements.clearBtn.addEventListener("click", () => {
   window.location.reload();
 });
 
+elements.login.addEventListener("click", () => {
+  elements.loginContainer.classList.add("show-modal");
+});
+elements.loginModalClose.addEventListener("click", () => {
+  elements.loginContainer.classList.remove("show-modal");
+});
+
 elements.open.addEventListener("click", () => {
   elements.modal.classList.add("show-modal");
 });
@@ -169,7 +177,7 @@ elements.registerSubmit.addEventListener("click", (e) => {
 
 async function registerUser(email, password) {
   console.log("call has been made to register user");
-  const res = await Axios.post("http://memoize-su.herokuapp.com/register", {
+  const res = await Axios.post(`${url}\\register`, {
     username: email,
     password: password,
   }).then(

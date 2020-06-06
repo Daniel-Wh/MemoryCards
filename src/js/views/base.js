@@ -21,4 +21,10 @@ export const elements = {
   password2el: document.getElementById("password2"),
   registerSubmit: document.getElementById("registerSubmit"),
   navToggle: document.getElementById("toggle"),
+  loginContainer: document.getElementById("login-modal"),
+  loginEmail: document.getElementById("login-email"),
+  loginPassword: document.getElementById("login-password"),
+  loginSubmit: document.getElementById("loginSubmit"),
+  login: document.getElementById("login"),
+  loginModalClose: document.getElementById("login-close"),
 };
