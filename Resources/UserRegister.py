@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+import json
 from werkzeug.security import safe_str_cmp
 from flask_jwt_extended import (
     create_access_token,
@@ -42,7 +43,7 @@ class AddCards(Resource):
         cards_arg.add_argument('owner_id', type=int)
         cards_arg = cards_arg.parse_args()
         data = c.get_cards_by_userID(cards_arg['owner_id'])
-        return data
+        return json.dumps(data)
 
 
 class UserRegister(Resource):
