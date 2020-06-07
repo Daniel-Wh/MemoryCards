@@ -9,6 +9,7 @@ from flask_jwt_extended import (
     jwt_required
 )
 from models.CardsModel import User as U
+from models.CardsModel import Cards as c
 from blacklist import BLACKLIST
 
 _user_parser = reqparse.RequestParser()
@@ -24,6 +25,26 @@ _user_parser.add_argument('password',
                           )
 
 
+class AddCards(Resource):
+    def post(self):
+        card_parser = reqparse.RequestParser()
+        card_parser.add_argument('question', type=str)
+        card_parser.add_argument('answer', type=str)
+        card_parser.add_argument('course', type=str)
+        card_parser.add_argument('owner_id', type=int)
+        data = card_parser.parse_args()
+        card = c(question=data['question'], answer=data['answer'], course=data['course'], owner_id=data['owner_id'])
+        card.save_to_db()
+        return card.json()
+
+    def get(self):
+        cards_arg = reqparse.RequestParser()
+        cards_arg.add_argument('owner_id', type=int)
+        cards_arg = cards_arg.parse_args()
+        data = c.get_cards_by_userID(cards_arg['owner_id'])
+        return data
+
+
 class UserRegister(Resource):
     def post(self):
         data = _user_parser.parse_args()
@@ -34,7 +55,9 @@ class UserRegister(Resource):
         user = U(data['username'], data['password'])
         user.save_to_db()
 
-        return {"message": "User created successfully."}, 201
+        user_json = user.json()
+
+        return {"message": user_json}, 201
 
 
 class UserLogin(Resource):
@@ -47,7 +70,8 @@ class UserLogin(Resource):
             refresh_token = create_refresh_token(user.id)
             return {
                        'access_token': access_token,
-                       'refresh_token': refresh_token
+                       'refresh_token': refresh_token,
+                       'user': user.json()
                    }, 200
 
         return {"message": "Invalid Credentials!"}, 401
@@ -66,6 +90,7 @@ class User(Resource):
     This resource can be useful when testing our Flask app. We may not want to expose it to public users, but for the
     sake of demonstration in this course, it can be useful when we are manipulating data regarding the users.
     """
+
     @classmethod
     def get(cls, user_id: int):
         user = U.find_by_id(user_id)

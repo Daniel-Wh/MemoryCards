@@ -4,7 +4,7 @@ from flask import Flask, render_template, jsonify
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
 from flask_cors import CORS, cross_origin
-from Resources.UserRegister import UserRegister, UserLogin
+from Resources.UserRegister import *
 from blacklist import BLACKLIST
 from db import db as db
 # from SETTINGS import uri, secret_key
@@ -108,6 +108,7 @@ def revoked_token_callback():
 # JWT configuration ends
 api.add_resource(UserRegister, '/register')
 api.add_resource(UserLogin, '/login')
+api.add_resource(AddCards, '/cards')
 
 if __name__ == '__main__':
     db.init_app(app)

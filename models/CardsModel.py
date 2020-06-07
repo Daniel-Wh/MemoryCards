@@ -12,14 +12,39 @@ class Cards(db.Model):
     course = db.Column(db.String(64))
     owner_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable=False)
 
-    def __init__(self, question, answer, course):
+    def __init__(self, question, answer, course, owner_id):
         self.question = question
         self.answer = answer
         self.course = course
+        self.owner_id = owner_id
 
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    def json(self):
+        return {
+            'question': self.question,
+            'answer': self.answer,
+            'course': self.course
+        }
+
+    @classmethod
+    def get_cards_by_userID(cls, owner_id):
+        cards = []
+        row = db.session.query(cls).filter(cls.owner_id == owner_id)
+        if row is None:
+            return []
+
+        for card in row:
+            objects = {
+                'question': card.question,
+                'answer': card.answer,
+                'course': card.course
+            }
+            cards.append(objects)
+
+        return cards
 
 
 class User(db.Model):
