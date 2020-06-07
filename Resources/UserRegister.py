@@ -1,3 +1,4 @@
+from flask import request
 from flask_restful import Resource, reqparse
 import json
 from werkzeug.security import safe_str_cmp
@@ -39,10 +40,8 @@ class AddCards(Resource):
         return card.json()
 
     def get(self):
-        cards_arg = reqparse.RequestParser()
-        cards_arg.add_argument('owner_id', type=int)
-        cards_arg = cards_arg.parse_args()
-        data = c.get_cards_by_userID(cards_arg['owner_id'])
+        _id = request.args.get('userID', )
+        data = c.get_cards_by_userID(_id)
         return json.dumps(data)
 
 

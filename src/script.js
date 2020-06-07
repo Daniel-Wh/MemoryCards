@@ -4,9 +4,11 @@ import Axios from "../node_modules/axios";
 const url = "https://memoize-su.herokuapp.com";
 // Keep track of current card
 let currentActiveCard = 0;
+let isLoggedIn = false;
+let currentUser;
 
 // Store DOM cards
-const cardsEl = [];
+let cardsEl = [];
 
 // Store card data
 const cardsData = getCardsData();
@@ -128,9 +130,24 @@ elements.addCardBtn.addEventListener("click", () => {
     elements.addContainer.classList.remove("show");
 
     cardsData.push(newCard);
-    setCardsData(cardsData);
+    if (isLoggedIn) {
+      pushCardToAPI({
+        question: question,
+        answer: answer,
+        course: "computer science",
+        owner_id: currentUser,
+      });
+    } else {
+      setCardsData(cardsData);
+    }
   }
 });
+
+async function pushCardToAPI(card) {
+  const res = await Axios.post(`${url}/cards`, card).then((response) => {
+    console.log(response);
+  });
+}
 
 // Clear cards button
 elements.clearBtn.addEventListener("click", () => {
@@ -207,11 +224,32 @@ async function loginUser(email, password) {
     username: email,
     password: password,
   }).then((response) => {
+    const data = response.data;
     if (response.status === 200) {
       // if user successfully logs in - jwt token also received
+      isLoggedIn = true;
       elements.loginContainer.classList.remove("show-modal");
-      alert("successfully logged in");
       elements.nav.classList.add("show-nav");
+      currentUser = data.user.id;
+      console.log(response);
+      console.log(currentUser);
+      getCardsFromAPI(currentUser);
     }
+  });
+}
+
+async function getCardsFromAPI(userID) {
+  const res = await Axios.get(`${url}/cards`, {
+    params: {
+      userID: userID,
+    },
+  }).then((response) => {
+    const cards = response.data;
+    elements.cardsContainer.innerHTML = "";
+    cardsEl = [];
+    currentActiveCard = 0;
+    cards.forEach((card, index) => {
+      createCard(card, index);
+    });
   });
 }
