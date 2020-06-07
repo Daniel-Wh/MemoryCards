@@ -33,8 +33,6 @@ class Cards(db.Model):
     def get_cards_by_userID(cls, owner_id):
         cards = []
         row = db.session.query(cls).filter(cls.owner_id == owner_id)
-        if row is None:
-            return []
 
         for card in row:
             objects = {
