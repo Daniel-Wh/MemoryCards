@@ -28,4 +28,5 @@ export const elements = {
   loginSubmit: document.getElementById("loginSubmit"),
   login: document.getElementById("login"),
   loginModalClose: document.getElementById("login-close"),
+  header: document.getElementById("header"),
 };

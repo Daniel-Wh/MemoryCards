@@ -228,6 +228,7 @@ async function loginUser(email, password) {
     if (response.status === 200) {
       // if user successfully logs in - jwt token also received
       isLoggedIn = true;
+      elements.header.classList.add("display-none");
       elements.loginContainer.classList.remove("show-modal");
       elements.nav.classList.add("show-nav");
       currentUser = data.user.id;
