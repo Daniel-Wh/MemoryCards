@@ -19,14 +19,13 @@
       <button id="toggle" class="toggle">
         <i class="fa fa-bars fa-2x"></i>
       </button>
-      <ul>
+      <ul id="course-list" class="display-none">
         <li><a id="courses">Courses:</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Contact Me</a></li>
+        <br /><br /><br />
+        <div class="course-ul-container"></div>
       </ul>
     </nav>
-    <div class="header">
+    <div class="header" id="header">
       <header>
         <h1>Memoize</h1>
         <h3>Sign up to store cards remotely and create classes</h3>
@@ -38,8 +37,8 @@
         </button>
       </header>
     </div>
-    <h1>
-      Memory Cards
+    <h1 class="course">
+      <div class="course" id="course-name">Memory Cards</div>
       <button id="show" class="btn btn-small">
         <i class="fas fa-plus"></i> Add New Card
       </button>
@@ -64,6 +63,10 @@
           <i class="fas fa-times"></i>
         </button>
       </h1>
+      <div class="form-group" id="course-form">
+        <label for="course">Course</label>
+        <textarea id="courseText" placeholder="Enter course..."></textarea>
+      </div>
       <div class="form-group">
         <label for="question">Question</label>
         <textarea id="question" placeholder="Enter question..."></textarea>
