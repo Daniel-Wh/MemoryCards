@@ -121,6 +121,7 @@ elements.showBtn.addEventListener("click", () => {
   elements.addContainer.classList.add("show");
   if (state.isLoggedIn) {
     elements.courseForm.classList.remove("display-none");
+    elements.courseText.textContent = state.currentCourse;
   }
 });
 // Hide add container
@@ -132,7 +133,7 @@ elements.hideBtn.addEventListener("click", () =>
 elements.addCardBtn.addEventListener("click", () => {
   const question = elements.questionEl.value;
   const answer = elements.answerEl.value;
-  const course = elements.courseEl.value;
+  const course = state.isLoggedIn ? elements.courseText.value : "n/a";
 
   if (question.trim() && answer.trim()) {
     const newCard = { question, answer, course };
@@ -311,6 +312,9 @@ function loadCoursesToNav() {
   while (myNode.firstChild) {
     myNode.removeChild(myNode.lastChild);
   }
+  const firstEl = document.createElement("li");
+  firstEl.innerHTML = `<a id="courses">Courses:</a><br><br><br>`;
+  elements.courseList.insertAdjacentElement("beforeend", firstEl);
   state.courses.forEach((course) => {
     const el = document.createElement("li");
     el.innerHTML = `
