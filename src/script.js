@@ -5,22 +5,19 @@ const url = "https://memoize-su.herokuapp.com";
 
 let state = {
   currentActiveCard: 0,
-  isLoggedIn: false,
   cardsEl: [],
   courses: [],
   cards: [],
 };
 
-// Keep track of current card
-let currentActiveCard = 0;
-let isLoggedIn = false;
-
 // Store DOM cards
 let cardsEl = [];
-let currentCourse;
 // Store card data
 const cardsData = getCardsData();
-
+if (!state.isLoggedIn) {
+  elements.courseForm.classList.add("display-none");
+  elements.nav.classList.add("display-none");
+}
 // Create all cards
 function createCards() {
   if (cardsData.length > 0) {
@@ -35,8 +32,10 @@ function createCard(data, index) {
 
   if (index === 0) {
     card.classList.add("active");
-    elements.courseName.textContent = data.course;
-    state.currentCourse = data.course;
+    if (state.isLoggedIn) {
+      elements.courseName.textContent = data.course;
+      state.currentCourse = data.course;
+    }
   }
 
   card.innerHTML = `
@@ -66,7 +65,7 @@ function createCard(data, index) {
 
 // Show number of cards
 function updateCurrentText() {
-  elements.currentEl.innerText = `${state.currentActivatedCard + 1}/${
+  elements.currentEl.innerText = `${state.currentActiveCard + 1}/${
     cardsEl.length
   }`;
 }
@@ -89,38 +88,42 @@ createCards();
 
 // Next button
 elements.nextBtn.addEventListener("click", () => {
-  cardsEl[state.currentActivatedCard].className = "card left";
+  cardsEl[state.currentActiveCard].className = "card left";
 
-  state.currentActivatedCard = state.currentActivatedCard + 1;
+  state.currentActiveCard = state.currentActiveCard + 1;
 
-  if (state.currentActivatedCard > cardsEl.length - 1) {
-    state.currentActivatedCard = cardsEl.length - 1;
+  if (state.currentActiveCard > cardsEl.length - 1) {
+    state.currentActiveCard = cardsEl.length - 1;
   }
 
-  cardsEl[state.currentActivatedCard].className = "card active";
+  cardsEl[state.currentActiveCard].className = "card active";
 
   updateCurrentText();
 });
 
 // Prev button
 elements.prevBtn.addEventListener("click", () => {
-  cardsEl[state.currentActivatedCard].className = "card right";
+  cardsEl[state.currentActiveCard].className = "card right";
 
-  state.currentActivatedCard = state.currentActivatedCard - 1;
+  state.currentActiveCard = state.currentActiveCard - 1;
 
-  if (state.currentActivatedCard < 0) {
-    state.currentActivatedCard = 0;
+  if (state.currentActiveCard < 0) {
+    state.currentActiveCard = 0;
   }
 
-  cardsEl[state.currentActivatedCard].className = "card active";
+  cardsEl[state.currentActiveCard].className = "card active";
 
   updateCurrentText();
 });
 
 // Show add container
-elements.showBtn.addEventListener("click", () =>
-  elements.addContainer.classList.add("show")
-);
+elements.showBtn.addEventListener("click", () => {
+  elements.addContainer.classList.add("show");
+  if (state.isLoggedIn) {
+    console.log("is logged in");
+    elements.courseForm.classList.remove("display-none");
+  }
+});
 // Hide add container
 elements.hideBtn.addEventListener("click", () =>
   elements.addContainer.classList.remove("show")
@@ -143,7 +146,7 @@ elements.addCardBtn.addEventListener("click", () => {
     elements.addContainer.classList.remove("show");
 
     cardsData.push(newCard);
-    if (isLoggedIn) {
+    if (state.isLoggedIn) {
       elements.courseName.textContent = course;
       pushCardToAPI({
         question: question,
@@ -242,11 +245,15 @@ async function loginUser(email, password) {
     const data = response.data;
     if (response.status === 200) {
       // if user successfully logs in - jwt token also received
-      isLoggedIn = true;
+      state.isLoggedIn = true;
+      console.log("logged in");
       elements.header.classList.add("display-none");
       elements.loginContainer.classList.remove("show-modal");
       elements.nav.classList.add("show-nav");
+      elements.nav.classList.remove("display-none");
+      elements.courseForm.classList.remove("display-none");
       state.currentUser = data.user.id;
+
       getCardsFromAPI(state.currentUser);
     }
   });
@@ -262,7 +269,7 @@ async function getCardsFromAPI(userID) {
     elements.cardsContainer.innerHTML = "";
     updateCourses();
     cardsEl = [];
-    state.currentActivatedCard = 0;
+    state.currentActiveCard = 0;
     state.cards.forEach((card, index) => {
       if (card.course == state.currentCourse) {
         createCard(card, index);
@@ -301,7 +308,7 @@ function loadCoursesToNav() {
 
 function loadCardsByCourse(course) {
   state.currentCourse = course;
-  state.currentActivatedCard = 0;
+  state.currentActiveCard = 0;
   cardsEl = [];
   let index = 0;
   state.cards.forEach((card) => {

@@ -11,6 +11,7 @@ export const elements = {
   questionEl: document.getElementById("question"),
   answerEl: document.getElementById("answer"),
   courseEl: document.getElementById("course"),
+  courseForm: document.getElementById("course-form"),
   courseName: document.getElementById("course-name"),
   addCardBtn: document.getElementById("add-card"),
   clearBtn: document.getElementById("clear"),
