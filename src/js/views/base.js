@@ -24,6 +24,7 @@ export const elements = {
   registerSubmit: document.getElementById("registerSubmit"),
   navToggle: document.getElementById("toggle"),
   nav: document.getElementById("nav"),
+  courseList: document.getElementById("course-list"),
   loginContainer: document.getElementById("login-modal"),
   loginEmail: document.getElementById("login-email"),
   loginPassword: document.getElementById("login-password"),

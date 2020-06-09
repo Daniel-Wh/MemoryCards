@@ -2,10 +2,18 @@ import { elements } from "./js/views/base";
 import Axios from "../node_modules/axios";
 
 const url = "https://memoize-su.herokuapp.com";
+
+let state = {
+  currentActiveCard: 0,
+  isLoggedIn: false,
+  cardsEl: [],
+  courses: [],
+  cards: [],
+};
+
 // Keep track of current card
 let currentActiveCard = 0;
 let isLoggedIn = false;
-let currentUser;
 
 // Store DOM cards
 let cardsEl = [];
@@ -28,6 +36,7 @@ function createCard(data, index) {
   if (index === 0) {
     card.classList.add("active");
     elements.courseName.textContent = data.course;
+    state.currentCourse = data.course;
   }
 
   card.innerHTML = `
@@ -57,7 +66,9 @@ function createCard(data, index) {
 
 // Show number of cards
 function updateCurrentText() {
-  elements.currentEl.innerText = `${currentActiveCard + 1}/${cardsEl.length}`;
+  elements.currentEl.innerText = `${state.currentActivatedCard + 1}/${
+    cardsEl.length
+  }`;
 }
 
 // Get cards from local storage
@@ -78,30 +89,30 @@ createCards();
 
 // Next button
 elements.nextBtn.addEventListener("click", () => {
-  cardsEl[currentActiveCard].className = "card left";
+  cardsEl[state.currentActivatedCard].className = "card left";
 
-  currentActiveCard = currentActiveCard + 1;
+  state.currentActivatedCard = state.currentActivatedCard + 1;
 
-  if (currentActiveCard > cardsEl.length - 1) {
-    currentActiveCard = cardsEl.length - 1;
+  if (state.currentActivatedCard > cardsEl.length - 1) {
+    state.currentActivatedCard = cardsEl.length - 1;
   }
 
-  cardsEl[currentActiveCard].className = "card active";
+  cardsEl[state.currentActivatedCard].className = "card active";
 
   updateCurrentText();
 });
 
 // Prev button
 elements.prevBtn.addEventListener("click", () => {
-  cardsEl[currentActiveCard].className = "card right";
+  cardsEl[state.currentActivatedCard].className = "card right";
 
-  currentActiveCard = currentActiveCard - 1;
+  state.currentActivatedCard = state.currentActivatedCard - 1;
 
-  if (currentActiveCard < 0) {
-    currentActiveCard = 0;
+  if (state.currentActivatedCard < 0) {
+    state.currentActivatedCard = 0;
   }
 
-  cardsEl[currentActiveCard].className = "card active";
+  cardsEl[state.currentActivatedCard].className = "card active";
 
   updateCurrentText();
 });
@@ -138,7 +149,7 @@ elements.addCardBtn.addEventListener("click", () => {
         question: question,
         answer: answer,
         course: course,
-        owner_id: currentUser,
+        owner_id: state.currentUser,
       });
     } else {
       setCardsData(cardsData);
@@ -182,6 +193,7 @@ window.addEventListener("click", (e) =>
 
 elements.navToggle.addEventListener("click", () => {
   document.body.classList.toggle("show-nav");
+  elements.courseList.classList.toggle("display-none");
 });
 
 elements.registerSubmit.addEventListener("click", (e) => {
@@ -234,10 +246,8 @@ async function loginUser(email, password) {
       elements.header.classList.add("display-none");
       elements.loginContainer.classList.remove("show-modal");
       elements.nav.classList.add("show-nav");
-      currentUser = data.user.id;
-      console.log(response);
-      console.log(currentUser);
-      getCardsFromAPI(currentUser);
+      state.currentUser = data.user.id;
+      getCardsFromAPI(state.currentUser);
     }
   });
 }
@@ -248,12 +258,56 @@ async function getCardsFromAPI(userID) {
       userID: userID,
     },
   }).then((response) => {
-    const cards = response.data;
+    state.cards = response.data;
     elements.cardsContainer.innerHTML = "";
+    updateCourses();
     cardsEl = [];
-    currentActiveCard = 0;
-    cards.forEach((card, index) => {
-      createCard(card, index);
+    state.currentActivatedCard = 0;
+    state.cards.forEach((card, index) => {
+      if (card.course == state.currentCourse) {
+        createCard(card, index);
+      }
     });
+  });
+}
+
+function updateCourses() {
+  const cards = state.cards;
+  cards.forEach((card, index) => {
+    if (index == 0) {
+      state.currentCourse = card.course;
+      state.courses.push(card.course);
+    } else {
+      if (!state.courses.includes(card.course)) {
+        state.courses.push(card.course);
+      }
+    }
+  });
+  loadCoursesToNav();
+}
+
+function loadCoursesToNav() {
+  state.courses.forEach((course) => {
+    const el = document.createElement("li");
+    el.innerHTML = `
+    <a id="${course}" data-course="${course}">${course}</a>`;
+    elements.courseList.insertAdjacentElement("beforeend", el);
+    el.addEventListener("click", (e) => {
+      const course = e.target.dataset;
+      loadCardsByCourse(course.course);
+    });
+  });
+}
+
+function loadCardsByCourse(course) {
+  state.currentCourse = course;
+  state.currentActivatedCard = 0;
+  cardsEl = [];
+  let index = 0;
+  state.cards.forEach((card) => {
+    if (card.course == course) {
+      createCard(card, index);
+      index++;
+    }
   });
 }
