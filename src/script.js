@@ -9,7 +9,7 @@ let currentUser;
 
 // Store DOM cards
 let cardsEl = [];
-
+let currentCourse;
 // Store card data
 const cardsData = getCardsData();
 
@@ -27,6 +27,7 @@ function createCard(data, index) {
 
   if (index === 0) {
     card.classList.add("active");
+    elements.courseName.textContent = data.course;
   }
 
   card.innerHTML = `
@@ -118,9 +119,10 @@ elements.hideBtn.addEventListener("click", () =>
 elements.addCardBtn.addEventListener("click", () => {
   const question = elements.questionEl.value;
   const answer = elements.answerEl.value;
+  const course = elements.courseEl.value;
 
   if (question.trim() && answer.trim()) {
-    const newCard = { question, answer };
+    const newCard = { question, answer, course };
 
     createCard(newCard);
 
@@ -131,10 +133,11 @@ elements.addCardBtn.addEventListener("click", () => {
 
     cardsData.push(newCard);
     if (isLoggedIn) {
+      elements.courseName.textContent = course;
       pushCardToAPI({
         question: question,
         answer: answer,
-        course: "computer science",
+        course: course,
         owner_id: currentUser,
       });
     } else {

@@ -10,6 +10,8 @@ export const elements = {
   hideBtn: document.getElementById("hide"),
   questionEl: document.getElementById("question"),
   answerEl: document.getElementById("answer"),
+  courseEl: document.getElementById("course"),
+  courseName: document.getElementById("course-name"),
   addCardBtn: document.getElementById("add-card"),
   clearBtn: document.getElementById("clear"),
   addContainer: document.getElementById("add-container"),

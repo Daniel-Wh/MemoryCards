@@ -12,13 +12,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  /* height: 100vh; */
   margin: 0;
   overflow: hidden;
   font-family: "Lato", sans-serif;
 }
 .display-none {
   display: none;
+}
+.course {
+  display: flex;
 }
 .header header {
   display: inline;
@@ -319,6 +322,7 @@ body.show-nav {
 }
 nav {
   display: none;
+  display: inline-flex;
   background-color: transparent;
   color: #fff;
   position: relative;

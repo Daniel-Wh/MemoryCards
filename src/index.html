@@ -42,7 +42,7 @@
     </div>
 
     <h1 class="course">
-      Memory Cards
+      <div class="course" id="course-name">Memory Cards</div>
       <button id="show" class="btn btn-small">
         <i class="fas fa-plus"></i> Add New Card
       </button>
@@ -103,10 +103,13 @@
       </h1>
 
       <div class="form-group">
+        <label for="course">Course</label>
+        <textarea id="course" placeholder="Enter course..."></textarea>
+      </div>
+      <div class="form-group">
         <label for="question">Question</label>
         <textarea id="question" placeholder="Enter question..."></textarea>
       </div>
-
       <div class="form-group">
         <label for="answer">Answer</label>
         <textarea id="answer" placeholder="Enter Answer..."></textarea>
