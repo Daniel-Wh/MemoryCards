@@ -33,4 +33,5 @@ export const elements = {
   login: document.getElementById("login"),
   loginModalClose: document.getElementById("login-close"),
   header: document.getElementById("header"),
+  courseUL: document.getElementById("course-ul-container"),
 };

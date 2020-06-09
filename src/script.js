@@ -120,7 +120,6 @@ elements.prevBtn.addEventListener("click", () => {
 elements.showBtn.addEventListener("click", () => {
   elements.addContainer.classList.add("show");
   if (state.isLoggedIn) {
-    console.log("is logged in");
     elements.courseForm.classList.remove("display-none");
   }
 });
@@ -162,7 +161,21 @@ elements.addCardBtn.addEventListener("click", () => {
 
 async function pushCardToAPI(card) {
   const res = await Axios.post(`${url}/cards`, card).then((response) => {
-    console.log(response);
+    if (response.status == 200) {
+      state.cards.push(card);
+      if (
+        card.course !== state.currentCourse &&
+        !state.courses.includes(card.course)
+      ) {
+        state.courses.push(card.course);
+        state.currentCourse = card.course;
+        loadCoursesToNav(card.course);
+        loadCardsByCourse(card.course);
+      } else {
+        state.currentCourse = card.course;
+        loadCardsByCourse(state.currentCourse);
+      }
+    }
   });
 }
 
@@ -294,6 +307,10 @@ function updateCourses() {
 }
 
 function loadCoursesToNav() {
+  const myNode = elements.courseList;
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.lastChild);
+  }
   state.courses.forEach((course) => {
     const el = document.createElement("li");
     el.innerHTML = `
