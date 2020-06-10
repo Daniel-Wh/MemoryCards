@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:300,500,700&display=swap");
 :root {
-  --modal-duration: 1s;
+  --modal-duration: 1.5s;
 }
 * {
   box-sizing: border-box;
@@ -33,7 +33,7 @@ body {
 .header h1 {
   align-self: center;
   left: 25%;
-  text-shadow: 1px solid #000;
+  text-shadow: 2px solid rgba(0 0 0 0.4);
   font-size: 44px;
 }
 .header button {
@@ -57,8 +57,8 @@ h1 button {
 .btn {
   cursor: pointer;
   background-color: #fff;
-  border: 1px solid rgba(188, 147, 243, 0.8);
-  border-radius: 3px;
+  border: 1px solid rgba(188, 147, 243, 0.4);
+  border-radius: 5px;
   font-size: 14px;
   margin-top: 20px;
   padding: 10px 15px;
@@ -97,7 +97,7 @@ h1 button {
   height: 100%;
   width: 100%;
   transform: translateX(50%) rotateY(-10deg);
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: transform 0.9s ease, opacity 0.4s ease;
 }
 
 .card.active {
@@ -118,7 +118,7 @@ h1 button {
   width: 100%;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.4s ease;
+  transition: transform 0.8s ease;
 }
 
 .card.show-answer .inner-card {
@@ -196,7 +196,7 @@ h1 button {
   top: 0;
   bottom: 0;
   width: 100%;
-  transition: 0.3s ease;
+  transition: 0.6s ease;
 }
 
 .add-container.show {
