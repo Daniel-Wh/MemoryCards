@@ -1,3 +1,5 @@
+import os
+
 from flask import request
 from flask_restful import Resource, reqparse
 from werkzeug.security import safe_str_cmp
@@ -9,9 +11,14 @@ from flask_jwt_extended import (
     get_raw_jwt,
     jwt_required
 )
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 from models.CardsModel import User as U
 from models.CardsModel import Cards as c
 from blacklist import BLACKLIST
+
+
+mailAPI = os.environ.get('mailAPI')
 
 _user_parser = reqparse.RequestParser()
 _user_parser.add_argument('username',
@@ -62,7 +69,17 @@ class UserRegister(Resource):
 
         user = U(data['username'], data['password'])
         user.save_to_db()
+        message = Mail(
+            from_email='whitneyd@southwestern.edu',
+            to_emails=data['username'],
+            subject='Registration Confirmation from Memoize',
+            html_content='<strong>Thank you for registering, if you need support, reply to this email. </strong>')
+        try:
+            sg = SendGridAPIClient(mailAPI)
+            response = sg.send(message)
 
+        except Exception as e:
+            print('there was an error: ' + e.message)
         user_json = user.json()
 
         return {"message": user_json}, 201

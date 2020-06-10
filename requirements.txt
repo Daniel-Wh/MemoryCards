@@ -17,6 +17,7 @@ psycopg2==2.8.5
 pyjwt==1.7.1
 pylint==2.5.2
 six==1.15.0
+sendgrid
 toml==0.10.1
 Werkzeug==1.0.1
 wrapt==1.12.1
