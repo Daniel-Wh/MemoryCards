@@ -182,10 +182,28 @@ async function pushCardToAPI(card) {
 
 // Clear cards button
 elements.clearBtn.addEventListener("click", () => {
-  localStorage.clear();
-  elements.cardsContainer.innerHTML = "";
-  window.location.reload();
+  if (state.isLoggedIn) {
+    // figure our the current set of cards
+    // then delete - can probably just send the user id and subject
+    removeCards(state.currentCourse, state.currentUser);
+  } else {
+    localStorage.clear();
+    elements.cardsContainer.innerHTML = "";
+    window.location.reload();
+  }
 });
+
+async function removeCards(course, user) {
+  const res = await Axios.post(`${url}/deleteCards`, {
+    course: course,
+    owner_id: user,
+  }).then((response) => {
+    if (response.status == 200) {
+      // update dom/nav with current cards instance
+      getCardsFromAPI(state.currentUser);
+    }
+  });
+}
 
 elements.login.addEventListener("click", () => {
   elements.loginContainer.classList.add("show-modal");
@@ -294,6 +312,7 @@ async function getCardsFromAPI(userID) {
 
 function updateCourses() {
   const cards = state.cards;
+  state.courses = [];
   cards.forEach((card, index) => {
     if (index == 0) {
       state.currentCourse = card.course;

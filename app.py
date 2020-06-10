@@ -109,7 +109,7 @@ def revoked_token_callback():
 api.add_resource(UserRegister, '/register')
 api.add_resource(UserLogin, '/login')
 api.add_resource(AddCards, '/cards')
-
+api.add_resource(RemoveCards, '/deleteCards')
 if __name__ == '__main__':
     db.init_app(app)
     app.run()

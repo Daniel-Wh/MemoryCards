@@ -44,6 +44,15 @@ class AddCards(Resource):
         return data
 
 
+class RemoveCards(Resource):
+    def post(self):
+        card_parser = reqparse.RequestParser()
+        card_parser.add_argument('course', type=str)
+        card_parser.add_argument('owner_id', type=int)
+        data = card_parser.parse_args()
+        c.remove_cards_by_course_and_user(course=data['course'], owner_id=data['owner_id'])
+
+
 class UserRegister(Resource):
     def post(self):
         data = _user_parser.parse_args()

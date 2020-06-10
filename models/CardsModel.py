@@ -22,6 +22,10 @@ class Cards(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def del_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
     def json(self):
         return {
             'question': self.question,
@@ -43,6 +47,14 @@ class Cards(db.Model):
             cards.append(objects)
 
         return cards
+
+    @classmethod
+    def remove_cards_by_course_and_user(cls, course, owner_id):
+        row = db.session.query(cls).filter(cls.owner_id == owner_id)
+
+        for card in row:
+            if card.course == course:
+                card.del_from_db()
 
 
 class User(db.Model):
