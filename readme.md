@@ -1,5 +1,6 @@
-# Memory/Index cards application
+# Memory/Flash cards application
 
-Users will be able to create memory cards and they will be stored locally on the users machine
+Users, without making an account, are be able to create flash cards and the cards will be stored locally on the user's machine. 
 
-If the user signs up, their cards will be stored remotely and they'll be able to access them through the site, anywhere they have access to the internet
+If the user registers for an account their cards will be stored in the cloud. Cards are sorted by course if the user has an account and cards are displayed by course.
+
